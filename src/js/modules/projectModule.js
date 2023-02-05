@@ -188,7 +188,7 @@ const totalPointsLogic = () => {
   const totalPointsSpan2 = headerOfProject.querySelector(totalPointsScoreId);
   if (
     totalPoints &&
-    +totalPointsSpan2?.textContent !== getTotalPoints(namesOfTasks)
+    parseInt(totalPointsSpan2?.textContent) !== getTotalPoints(namesOfTasks)
   ) {
     totalPointsSpan2.textContent = getTotalPoints(namesOfTasks);
   } else if (totalPoints) {

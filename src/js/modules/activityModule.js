@@ -78,7 +78,7 @@ const postCounterToPage = (points, numForId, parent) => {
 
   if (
     scoreBlockParent.id === "counter" &&
-    +scoreTextOnPage.textContent !== points
+    parseInt(scoreTextOnPage.textContent) !== points
   ) {
     scoreTextOnPage.textContent = points;
   } else if (scoreBlockParent.id === "counter") {
