@@ -39,7 +39,7 @@ const setButtonStyles = (button) => {
   button.style.marginTop = "-1px";
 };
 
-const nodeToArray = (node) => {
+export const nodeToArray = (node) => {
   return Array.from(node);
 };
 
@@ -90,7 +90,7 @@ const getTotalPoints = (namesOfTasks) => {
   const regexForTotalPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
   const modalDialog = document.querySelector("div[role=dialog]");
 
-  return Array.from(namesOfTasks)
+  return nodeToArray(namesOfTasks)
     .filter((task) => {
       return modalDialog === null || !modalDialog.contains(task);
     })

@@ -1,3 +1,5 @@
+import { nodeToArray } from "./projectModule";
+
 const isCompleteTask = (svgPath) => {
   return svgPath === "sm1/notification_completed.svg";
 };
@@ -90,7 +92,7 @@ const postCounterToPage = (points, numForId, parent) => {
 const checkIsTaskCorrect = (regexForScoreAndPoints) => {
   const taskIcons = document.getElementsByClassName("avatar_event_icon");
 
-  Array.from(taskIcons).map((taskIcon) => {
+  nodeToArray(taskIcons).map((taskIcon) => {
     const taskItem = taskIcon.parentElement.parentElement;
 
     if (!isCompleteTask(taskIcon.querySelector("svg").dataset.svgsPath)) {
@@ -136,7 +138,7 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
 const activityModule = () => {
   const sectionsOfTasks = document.getElementsByClassName("section");
   const tasks = document.querySelectorAll("ul.items");
-  const tasksArray = Array.from(tasks);
+  const tasksArray = nodeToArray(tasks);
   const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
   getItemsScores(tasksArray, getItemScore, regexForScoreAndPoints).map(
