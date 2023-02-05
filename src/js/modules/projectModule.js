@@ -186,6 +186,7 @@ const totalPointsLogic = () => {
 
   const totalPoints = headerOfProject.querySelector(totalPointsId);
   const totalPointsSpan2 = headerOfProject.querySelector(totalPointsScoreId);
+
   if (
     totalPoints &&
     parseInt(totalPointsSpan2?.textContent) !== getTotalPoints(namesOfTasks)
@@ -194,7 +195,7 @@ const totalPointsLogic = () => {
   } else if (totalPoints) {
     return;
   } else {
-    headerOfProject.childNodes[1].after(totalPointsParent);
+    buttonsGroup.after(totalPointsParent);
     totalPointsParent.id = "TOTAL_POINTS_ID";
   }
 };
