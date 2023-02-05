@@ -4,6 +4,7 @@ import projectModule from "./projectModule";
 const runApp = () => {
   const windowLink = window.location.href;
   const todoistLink = "https://todoist.com/app";
+
   if (
     windowLink.includes(`${todoistLink}/project`) ||
     windowLink === `${todoistLink}/today`
