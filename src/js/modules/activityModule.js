@@ -10,6 +10,7 @@ const getItemScore = (name, regex) => {
 const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
   return tasks.map((task) => {
     const taskChildNodes = [...task.childNodes];
+
     return taskChildNodes
       .map((taskChildNode) => {
         const svgPathOfItemChildNode =
