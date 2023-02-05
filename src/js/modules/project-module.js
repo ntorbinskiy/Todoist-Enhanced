@@ -142,11 +142,11 @@ const setTotalPointsStyle = (
   buttonsGroup.style.gridColumnStart = 2;
 
   totalPointsElement.textContent = "Total points left for this project: ";
-  totalPointsElement.style.fontFamily = "Inter";
+  totalPointsElement.style.fontFamily = "inherit";
   totalPointsElement.style.fontSize = "12px";
 
   totalPointsSpan.textContent = totalPoints;
-  totalPointsSpan.style.fontFamily = "Inter";
+  totalPointsSpan.style.fontFamily = "inherit";
   totalPointsSpan.style.fontSize = "12px";
   totalPointsSpan.style.fontWeight = "700";
   totalPointsSpan.id = "TOTAL_POINTS_SCORE_ID";

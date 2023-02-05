@@ -38,14 +38,14 @@ const setStylesForScores = (
   scoreSum.innerHTML = pointsCount;
   scoreSum.style.fontSize = "12px";
   scoreSum.style.fontWeight = 700;
-  scoreSum.style.fontFamily = "Inter";
+  scoreSum.style.fontFamily = "inherit";
   scoreSum.style.position = "relative";
   scoreSum.id = "scoreSum";
 
   scoreText.innerHTML = `Total Score For This Day: `;
   scoreText.style.fontSize = "12px";
   scoreText.style.fontWeight = 400;
-  scoreText.style.fontFamily = "Inter";
+  scoreText.style.fontFamily = "inherit";
   scoreText.style.position = "relative";
 
   scoreBlockParent.style.display = "flex";
@@ -108,7 +108,7 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
       taskTime.id = "noPoints";
       noPoints.style.fontSize = "11px";
       noPoints.style.fontWeight = 500;
-      noPoints.style.fontFamily = "Inter";
+      noPoints.style.fontFamily = "inherit";
       noPoints.style.color = "#BC760D";
       noPoints.style.position = "relative";
       noPoints.style.top = "0px";
