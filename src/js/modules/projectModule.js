@@ -153,11 +153,12 @@ const setTotalPointsStyle = (
 };
 
 const totalPointsLogic = () => {
-  const namesOfTasks = document.querySelectorAll("div.task_content");
-  const headerOfProject = document.querySelector("div.view_header__content");
   const totalPointsParent = document.createElement("div");
   const totalPointsElement = document.createElement("div");
   const totalPointsSpan = document.createElement("span");
+
+  const namesOfTasks = document.querySelectorAll("div.task_content");
+  const headerOfProject = document.querySelector("div.view_header__content");
   const buttonsGroup = headerOfProject.querySelector(
     "div.view_header__actions"
   );
@@ -165,6 +166,7 @@ const totalPointsLogic = () => {
     "[data-testid=view_header__form]"
   );
   const projectName = document.querySelector("h1");
+
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsScoreId = "#TOTAL_POINTS_SCORE_ID";
 
