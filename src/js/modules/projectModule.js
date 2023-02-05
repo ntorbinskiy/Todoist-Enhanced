@@ -104,29 +104,61 @@ const getTotalPoints = (namesOfTasks) => {
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 };
 
-const setTotalPointsStyle = (
+const setHeaderOfProjectStyles = (headerOfProject) => {
+  headerOfProject.style.display = "grid";
+  headerOfProject.style.gridTemplateRows = "0fr 2fr";
+  headerOfProject.style.gridTemplateColumns = "auto auto";
+  headerOfProject.style.alignItems = "center";
+  headerOfProject.style.gap = "21px";
+};
+
+const setTotalPointsParentStyles = (totalPointsParent) => {
+  totalPointsParent.style.minWidth = "190px";
+  totalPointsParent.style.justifySelf = "end";
+  totalPointsParent.style.gridColumnStart = -2;
+  totalPointsParent.style.gridRowStart = 2;
+};
+
+const setTotalPointsElementStyles = (totalPointsElement) => {
+  totalPointsElement.textContent = "Total points left for this project: ";
+  totalPointsElement.style.fontFamily = "inherit";
+  totalPointsElement.style.fontSize = "12px";
+};
+
+const setTotalPointsSpanStyles = (totalPointsSpan, totalPoints) => {
+  totalPointsSpan.textContent = totalPoints;
+  totalPointsSpan.style.fontFamily = "inherit";
+  totalPointsSpan.style.fontSize = "12px";
+  totalPointsSpan.style.fontWeight = "700";
+  totalPointsSpan.id = "TOTAL_POINTS_SCORE_ID";
+};
+
+const setButtonGroupStyles = (buttonsGroup) => {
+  buttonsGroup.style.gridColumnStart = 2;
+};
+
+const setTotalPointsStyle = ({
   totalPointsElement,
   totalPointsSpan,
   buttonsGroup,
   totalPointsParent,
   headerOfProject,
   projectName,
-  editProjectName,
-  totalPoints
-) => {
-  headerOfProject.style.display = "grid";
-  headerOfProject.style.gridTemplateRows = "0fr 2fr";
-  headerOfProject.style.gridTemplateColumns = "auto auto";
-  headerOfProject.style.alignItems = "center";
-  headerOfProject.style.gap = "21px";
+  editProjectNameMode,
+  totalPoints,
+}) => {
+  setHeaderOfProjectStyles(headerOfProject);
 
-  totalPointsParent.style.minWidth = "190px";
-  totalPointsParent.style.justifySelf = "end";
-  totalPointsParent.style.gridColumnStart = -2;
-  totalPointsParent.style.gridRowStart = 2;
+  setTotalPointsParentStyles(totalPointsParent);
 
-  if (editProjectName) {
-    editProjectName.style.gridRow = "span 2";
+  setTotalPointsElementStyles(totalPointsElement);
+
+  setTotalPointsSpanStyles(totalPointsSpan, totalPoints);
+
+  setButtonGroupStyles(buttonsGroup);
+
+  if (editProjectNameMode) {
+    editProjectNameMode.style.gridRow = "span 2";
   } else if (projectName) {
     projectName.style.gridRowStart = 2;
   }
@@ -138,18 +170,6 @@ const setTotalPointsStyle = (
     projectName.parentElement.style.gridRowStart = 2;
     headerOfProject.style.alignItems = "center";
   }
-
-  buttonsGroup.style.gridColumnStart = 2;
-
-  totalPointsElement.textContent = "Total points left for this project: ";
-  totalPointsElement.style.fontFamily = "inherit";
-  totalPointsElement.style.fontSize = "12px";
-
-  totalPointsSpan.textContent = totalPoints;
-  totalPointsSpan.style.fontFamily = "inherit";
-  totalPointsSpan.style.fontSize = "12px";
-  totalPointsSpan.style.fontWeight = "700";
-  totalPointsSpan.id = "TOTAL_POINTS_SCORE_ID";
 };
 
 const totalPointsLogic = () => {
@@ -162,7 +182,7 @@ const totalPointsLogic = () => {
   const buttonsGroup = headerOfProject.querySelector(
     "div.view_header__actions"
   );
-  const editProjectName = document.querySelector(
+  const editProjectNameMode = document.querySelector(
     "[data-testid=view_header__form]"
   );
   const projectName = document.querySelector("h1");
@@ -170,16 +190,18 @@ const totalPointsLogic = () => {
   const totalPointsId = "#TOTAL_POINTS_ID";
   const totalPointsScoreId = "#TOTAL_POINTS_SCORE_ID";
 
-  setTotalPointsStyle(
+  const totalPointsOptions = {
     totalPointsElement,
     totalPointsSpan,
     buttonsGroup,
     totalPointsParent,
     headerOfProject,
     projectName,
-    editProjectName,
-    getTotalPoints(namesOfTasks)
-  );
+    editProjectNameMode,
+    totalPoints: getTotalPoints(namesOfTasks),
+  };
+
+  setTotalPointsStyle(totalPointsOptions);
 
   totalPointsElement.append(totalPointsSpan);
   totalPointsParent.append(totalPointsElement);
