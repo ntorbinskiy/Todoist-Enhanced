@@ -6,7 +6,7 @@ const isCompleteTask = (svgPath) => {
 
 const getItemScore = (name, regex) => {
   const scoreText = name.replaceAll("\n", " ").match(regex)?.groups?.["score"];
-  return scoreText ? parseInt(scoreText) : undefined;
+  return parseInt(scoreText) || 0;
 };
 
 const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {

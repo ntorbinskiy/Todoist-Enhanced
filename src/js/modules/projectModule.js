@@ -99,7 +99,7 @@ const getTotalPoints = (namesOfTasks) => {
         .replaceAll("\n", " ")
         .match(regexForTotalPoints)?.groups?.["score"];
 
-      return scoreText ? parseInt(scoreText) : 0;
+      return parseInt(scoreText) || 0;
     })
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 };
