@@ -30,7 +30,7 @@ if (fileSystem.existsSync(secretsPath)) {
 var options = {
   mode: process.env.NODE_ENV || "development",
   entry: {
-    content: path.join(__dirname, "src", "js", "content-script-root.js"),
+    content: path.join(__dirname, "src", "js", "contentScriptRoot.js"),
   },
   output: {
     path: path.join(__dirname, "build"),

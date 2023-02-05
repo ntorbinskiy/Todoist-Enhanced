@@ -1,5 +1,5 @@
-import activityModule from "./activity-module";
-import projectModule from "./project-module";
+import activityModule from "./activityModule";
+import projectModule from "./projectModule";
 
 const runApp = () => {
   const windowLink = window.location.href;

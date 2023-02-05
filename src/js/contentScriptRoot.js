@@ -1,4 +1,4 @@
-import mutationObserver from "./mutation-observer";
+import mutationObserver from "./mutationObserver";
 import runApp from "./modules/runApp";
 import "../icons/icon128.png";
 import "../icons/icon48.png";
