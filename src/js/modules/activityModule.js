@@ -106,6 +106,8 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
     const score = getItemScore(taskName, regexForScoreAndPoints);
 
     if (score === undefined) {
+      const limitOfSignsPerTask = 86;
+
       taskItem.style.backgroundColor = "rgba(246, 193, 4, 0.11)";
       if (taskTime?.id === "noPoints") {
         return;
@@ -123,7 +125,7 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
       noPoints.style.top = "0px";
       noPoints.style.left = "0px";
 
-      if (taskName.length >= 86) {
+      if (taskName.length >= limitOfSignsPerTask) {
         noPoints.style.left = "64px";
       }
       taskText.after(noPoints);
