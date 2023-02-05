@@ -31,12 +31,12 @@ const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
   });
 };
 
-const setStylesForScores = (
+const setStylesForScores = ({
   scoreSum,
   scoreText,
   scoreBlockParent,
-  pointsCount
-) => {
+  pointsCount,
+}) => {
   scoreSum.innerHTML = pointsCount;
   scoreSum.style.fontSize = "12px";
   scoreSum.style.fontWeight = 700;
@@ -63,7 +63,14 @@ const postCounterToPage = (points, numForId, parent) => {
 
   scoreBlock.append(scoreText, scoreSum);
 
-  setStylesForScores(scoreSum, scoreText, scoreBlockParent, points);
+  const stylesForScoresOptions = {
+    scoreSum,
+    scoreText,
+    scoreBlockParent,
+    points,
+  };
+
+  setStylesForScores(stylesForScoresOptions);
 
   const scoreTextOnPage = scoreBlockParent?.querySelector("#scoreSum");
 
