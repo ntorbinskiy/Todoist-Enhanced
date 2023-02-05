@@ -6,7 +6,7 @@ const config = {
 };
 
 const callback = (mutationList, observer) => {
-  //the second arg is required    ⬆️
+  // the second arg is required    ⬆️
   for (const mutation of mutationList) {
     if (mutation) {
       runApp();
