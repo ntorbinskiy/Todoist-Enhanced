@@ -1,5 +1,6 @@
-const isCompleteTask = (svgPath) =>
-  svgPath === "sm1/notification_completed.svg";
+const isCompleteTask = (svgPath) => {
+  return svgPath === "sm1/notification_completed.svg";
+};
 
 const getItemScore = (name, regex) => {
   const scoreText = name.replaceAll("\n", " ").match(regex)?.groups?.["score"];
