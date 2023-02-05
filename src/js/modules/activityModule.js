@@ -44,7 +44,7 @@ const setStylesForScores = ({
   scoreSum.style.position = "relative";
   scoreSum.id = "scoreSum";
 
-  scoreText.innerHTML = `Total Score For This Day: `;
+  scoreText.innerHTML = "Total Score For This Day: ";
   scoreText.style.fontSize = "12px";
   scoreText.style.fontWeight = 400;
   scoreText.style.fontFamily = "inherit";
