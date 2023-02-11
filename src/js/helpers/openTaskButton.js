@@ -31,4 +31,31 @@ const setupSvg = (iconSvg, iconRect, iconLine, iconPath) => {
 
   return iconSvg;
 };
-export default setupSvg;
+const setButtonStyles = (button) => {
+  button.className = "button-href";
+  button.style.height = "24px";
+  button.style.width = "24px";
+  button.style.marginTop = "-1px";
+};
+
+const createOpenTaskButton = (taskId) => {
+  const button = document.createElement("button");
+  const svgPath = "http://www.w3.org/2000/svg";
+
+  const iconSvg = document.createElementNS(svgPath, "svg");
+  const iconRect = document.createElementNS(svgPath, "rect");
+  const iconLine = document.createElementNS(svgPath, "line");
+  const iconPath = document.createElementNS(svgPath, "path");
+
+  button.appendChild(setupSvg(iconSvg, iconRect, iconLine, iconPath));
+
+  setButtonStyles(button);
+
+  button.addEventListener("click", () => {
+    window.open(`https://todoist.com/app/task/${taskId}`, "_blank").focus();
+  });
+
+  return button;
+};
+
+export default createOpenTaskButton;

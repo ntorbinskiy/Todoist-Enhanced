@@ -1,12 +1,5 @@
-import setupSvg from "../helpers/setupSvg";
 import nodeToArray from "../helpers/nodeToArray";
-
-const setButtonStyles = (button) => {
-  button.className = "button-href";
-  button.style.height = "24px";
-  button.style.width = "24px";
-  button.style.marginTop = "-1px";
-};
+import createOpenTaskButton from "../helpers/openTaskButton";
 
 const setHeaderOfProjectStyles = (headerOfProject) => {
   headerOfProject.style.display = "grid";
@@ -46,16 +39,6 @@ const linkLogic = () => {
 
   nodeToArray(listOfTasks).map((task) =>
     nodeToArray(task.childNodes).map((taskChildNode) => {
-      const button = document.createElement("button");
-      const svgPath = "http://www.w3.org/2000/svg";
-
-      const iconSvg = document.createElementNS(svgPath, "svg");
-      const iconRect = document.createElementNS(svgPath, "rect");
-      const iconLine = document.createElementNS(svgPath, "line");
-      const iconPath = document.createElementNS(svgPath, "path");
-
-      button.appendChild(setupSvg(iconSvg, iconRect, iconLine, iconPath));
-
       const buttonLinkParent = taskChildNode.querySelector(
         ".task_list_item__actions--active"
       )?.childNodes;
@@ -64,21 +47,14 @@ const linkLogic = () => {
         return;
       }
 
-      setButtonStyles(button);
-
       taskChildNode.addEventListener("mouseenter", () => {
-        if (!(buttonLinkParent[0].className === "button-href")) {
-          buttonLinkParent[0].before(button);
-        }
-      });
+        if (buttonLinkParent[0].className !== "button-href") {
+          const openTaskButton = createOpenTaskButton(
+            taskChildNode.dataset.itemId
+          );
 
-      button.addEventListener("click", () => {
-        window
-          .open(
-            `https://todoist.com/app/task/${taskChildNode.dataset.itemId}`,
-            "_blank"
-          )
-          .focus();
+          buttonLinkParent[0].before(openTaskButton);
+        }
       });
     })
   );
