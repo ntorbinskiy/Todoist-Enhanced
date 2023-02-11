@@ -1,4 +1,4 @@
-import { nodeToArray } from "./projectModule";
+import nodeToArray from "../helpers/nodeToArray";
 
 const isCompleteTask = (svgPath) => {
   return svgPath === "sm1/notification_completed.svg";
