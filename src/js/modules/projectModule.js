@@ -1,5 +1,6 @@
 import nodeToArray from "../helpers/nodeToArray";
 import createOpenTaskButton from "../helpers/openTaskButton";
+import { createTotalPoints } from "../helpers/totalPoints";
 
 const setHeaderOfProjectStyles = (headerOfProject) => {
   headerOfProject.style.display = "grid";
@@ -7,27 +8,6 @@ const setHeaderOfProjectStyles = (headerOfProject) => {
   headerOfProject.style.gridTemplateColumns = "auto auto";
   headerOfProject.style.alignItems = "center";
   headerOfProject.style.gap = "21px";
-};
-
-const setTotalPointsParentStyles = (totalPointsParent) => {
-  totalPointsParent.style.minWidth = "190px";
-  totalPointsParent.style.justifySelf = "end";
-  totalPointsParent.style.gridColumnStart = -2;
-  totalPointsParent.style.gridRowStart = 2;
-};
-
-const setTotalPointsElementStyles = (totalPointsElement) => {
-  totalPointsElement.textContent = "Total points left for this project: ";
-  totalPointsElement.style.fontFamily = "inherit";
-  totalPointsElement.style.fontSize = "12px";
-};
-
-const setTotalPointsSpanStyles = (totalPointsSpan, totalPoints) => {
-  totalPointsSpan.textContent = totalPoints;
-  totalPointsSpan.style.fontFamily = "inherit";
-  totalPointsSpan.style.fontSize = "12px";
-  totalPointsSpan.style.fontWeight = "700";
-  totalPointsSpan.id = "TOTAL_POINTS_SCORE_ID";
 };
 
 const setButtonGroupStyles = (buttonsGroup) => {
@@ -79,22 +59,12 @@ const getTotalPoints = (namesOfTasks) => {
 };
 
 const setTotalPointsStyle = ({
-  totalPointsElement,
-  totalPointsSpan,
   buttonsGroup,
-  totalPointsParent,
   headerOfProject,
   projectName,
   editProjectNameMode,
-  totalPoints,
 }) => {
   setHeaderOfProjectStyles(headerOfProject);
-
-  setTotalPointsParentStyles(totalPointsParent);
-
-  setTotalPointsElementStyles(totalPointsElement);
-
-  setTotalPointsSpanStyles(totalPointsSpan, totalPoints);
 
   setButtonGroupStyles(buttonsGroup);
 
@@ -114,10 +84,6 @@ const setTotalPointsStyle = ({
 };
 
 const totalPointsLogic = () => {
-  const totalPointsParent = document.createElement("div");
-  const totalPointsElement = document.createElement("div");
-  const totalPointsSpan = document.createElement("span");
-
   const namesOfTasks = document.querySelectorAll("div.task_content");
   const headerOfProject = document.querySelector("div.view_header__content");
   const buttonsGroup = headerOfProject.querySelector(
@@ -132,34 +98,30 @@ const totalPointsLogic = () => {
   const totalPointsScoreId = "#TOTAL_POINTS_SCORE_ID";
 
   const totalPointsOptions = {
-    totalPointsElement,
-    totalPointsSpan,
     buttonsGroup,
-    totalPointsParent,
     headerOfProject,
     projectName,
     editProjectNameMode,
-    totalPoints: getTotalPoints(namesOfTasks),
   };
 
   setTotalPointsStyle(totalPointsOptions);
 
-  totalPointsElement.append(totalPointsSpan);
-  totalPointsParent.append(totalPointsElement);
-
-  const totalPoints = headerOfProject.querySelector(totalPointsId);
+  const totalPointsElement = headerOfProject.querySelector(totalPointsId);
   const totalPointsSpan2 = headerOfProject.querySelector(totalPointsScoreId);
 
+  const totalPointsScore = getTotalPoints(namesOfTasks);
+
   if (
-    totalPoints &&
-    parseInt(totalPointsSpan2?.textContent) !== getTotalPoints(namesOfTasks)
+    totalPointsElement &&
+    parseInt(totalPointsSpan2?.textContent) !== totalPointsScore
   ) {
-    totalPointsSpan2.textContent = getTotalPoints(namesOfTasks);
-  } else if (totalPoints) {
+    totalPointsSpan2.textContent = totalPointsScore;
+  } else if (totalPointsElement) {
     return;
   } else {
-    buttonsGroup.after(totalPointsParent);
-    totalPointsParent.id = "TOTAL_POINTS_ID";
+    const totalPoints = createTotalPoints(totalPointsScore);
+
+    buttonsGroup.after(totalPoints);
   }
 };
 
