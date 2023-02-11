@@ -11,7 +11,7 @@ const getItemScore = (name, regex) => {
 
 const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
   return tasks.map((task) => {
-    const taskChildNodes = [...task.childNodes];
+    const taskChildNodes = nodeToArray(task.childNodes);
 
     return taskChildNodes
       .map((taskChildNode) => {
