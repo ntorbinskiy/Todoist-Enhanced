@@ -1,6 +1,10 @@
 import nodeToArray from "../helpers/nodeToArray";
-import createOpenTaskButton from "../helpers/openTaskButton";
-import { createTotalPoints } from "../helpers/totalPoints";
+import createOpenTaskButton from "../components/openTaskButton";
+import {
+  createTotalPoints,
+  findTotalPointsElement,
+  updateTotalPointsScore,
+} from "../components/totalPoints";
 
 const setHeaderOfProjectStyles = (headerOfProject) => {
   headerOfProject.style.display = "grid";
@@ -94,9 +98,6 @@ const totalPointsLogic = () => {
   );
   const projectName = document.querySelector("h1");
 
-  const totalPointsId = "#TOTAL_POINTS_ID";
-  const totalPointsScoreId = "#TOTAL_POINTS_SCORE_ID";
-
   const totalPointsOptions = {
     buttonsGroup,
     headerOfProject,
@@ -106,23 +107,17 @@ const totalPointsLogic = () => {
 
   setTotalPointsStyle(totalPointsOptions);
 
-  const totalPointsElement = headerOfProject.querySelector(totalPointsId);
-  const totalPointsSpan2 = headerOfProject.querySelector(totalPointsScoreId);
-
   const totalPointsScore = getTotalPoints(namesOfTasks);
 
-  if (
-    totalPointsElement &&
-    parseInt(totalPointsSpan2?.textContent) !== totalPointsScore
-  ) {
-    totalPointsSpan2.textContent = totalPointsScore;
-  } else if (totalPointsElement) {
-    return;
-  } else {
-    const totalPoints = createTotalPoints(totalPointsScore);
+  const totalPointsElement = findTotalPointsElement();
 
+  if (!totalPointsElement) {
+    const totalPoints = createTotalPoints(totalPointsScore);
     buttonsGroup.after(totalPoints);
+    return;
   }
+
+  updateTotalPointsScore(totalPointsElement, totalPointsScore);
 };
 
 const projectModule = () => {

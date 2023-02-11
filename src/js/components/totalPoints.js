@@ -1,9 +1,24 @@
+const TOTAL_POINTS_ID = "TOTAL_POINTS_ID";
+const TOTAL_POINTS_SCORE_ID = "TOTAL_POINTS_SCORE_ID";
+
+export const findTotalPointsElement = () => {
+  return document.querySelector(`#${TOTAL_POINTS_ID}`);
+};
+
+export const updateTotalPointsScore = (totalPointsElement, totalPoints) => {
+  const totalPointsSpan2 = totalPointsElement.querySelector(
+    `#${TOTAL_POINTS_SCORE_ID}`
+  );
+
+  totalPointsSpan2.textContent = totalPoints;
+};
+
 const setTotalPointsParentStyles = (totalPointsParent) => {
   totalPointsParent.style.minWidth = "190px";
   totalPointsParent.style.justifySelf = "end";
   totalPointsParent.style.gridColumnStart = -2;
   totalPointsParent.style.gridRowStart = 2;
-  totalPointsParent.id = "TOTAL_POINTS_ID";
+  totalPointsParent.id = TOTAL_POINTS_ID;
 };
 
 const setTotalPointsElementStyles = (totalPointsElement) => {
@@ -17,7 +32,7 @@ const setTotalPointsSpanStyles = (totalPointsSpan, totalPoints) => {
   totalPointsSpan.style.fontFamily = "inherit";
   totalPointsSpan.style.fontSize = "12px";
   totalPointsSpan.style.fontWeight = "700";
-  totalPointsSpan.id = "TOTAL_POINTS_SCORE_ID";
+  totalPointsSpan.id = TOTAL_POINTS_SCORE_ID;
 };
 
 export const createTotalPoints = (totalPoints) => {
