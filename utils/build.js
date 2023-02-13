@@ -1,10 +1,9 @@
-var webpack = require("webpack"),
-  config = require("../webpack.config");
+import webpack from "webpack";
+import config from "../webpack.config.js";
 
-delete config.chromeExtensionBoilerplate;
+const { chromeExtensionBoilerplate, ...configWithoutBoilerplate } = config;
 
-webpack(config, (err, stats) => {
-  // [Stats Object](#stats-object)
+webpack(configWithoutBoilerplate, (err, stats) => {
   if (err) {
     throw err;
   }
@@ -12,5 +11,4 @@ webpack(config, (err, stats) => {
   if (stats.hasErrors()) {
     throw stats.compilation.errors[0];
   }
-  // Done processing
 });

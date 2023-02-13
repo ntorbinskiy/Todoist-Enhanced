@@ -1,5 +1,6 @@
 {
   "name": "todoist-enhanced",
+  "type": "module",
   "version": "0.0.1",
   "description": "Todoist enhanced",
   "scripts": {

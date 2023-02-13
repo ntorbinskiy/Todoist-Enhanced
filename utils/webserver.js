@@ -1,13 +1,13 @@
-var WebpackDevServer = require("webpack-dev-server"),
-  webpack = require("webpack"),
-  config = require("../webpack.config"),
-  env = require("./env"),
-  path = require("path");
+import WebpackDevServer from "webpack-dev-server";
+import webpack from "webpack";
+import config from "../webpack.config.js";
+import path from "path";
+import env from "./env";
 
-var options = config.chromeExtensionBoilerplate || {};
-var excludeEntriesToHotReload = options.notHotReload || [];
+const options = config.chromeExtensionBoilerplate || {};
+const excludeEntriesToHotReload = options.notHotReload || [];
 
-for (var entryName in config.entry) {
+for (const entryName in config.entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
     config.entry[entryName] = [
       "webpack-dev-server/client?http://localhost:" + env.PORT,
@@ -20,11 +20,11 @@ config.plugins = [new webpack.HotModuleReplacementPlugin()].concat(
   config.plugins || []
 );
 
-delete config.chromeExtensionBoilerplate;
+const { chromeExtensionBoilerplate, ...configWithoutBoilerplate } = config;
 
-var compiler = webpack(config);
+const compiler = webpack(configWithoutBoilerplate);
 
-var server = new WebpackDevServer(compiler, {
+const server = new WebpackDevServer(compiler, {
   hot: true,
   contentBase: path.join(__dirname, "../build"),
   sockPort: env.PORT,
