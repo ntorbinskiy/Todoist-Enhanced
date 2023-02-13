@@ -91,14 +91,6 @@ const options = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
     }),
-    //  new CopyWebpackPlugin(
-    //   {
-    //     patterns: [
-    //       { from: 'src/xxx.ext', to: 'dist/xxx.ext' },
-    //       { from: 'src/yyy.ext', to: 'dist/yyy.ext' }
-    //     ]
-    //   }
-    // )
     new CopyWebpackPlugin({
       patterns: [
         {
