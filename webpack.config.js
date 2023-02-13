@@ -1,16 +1,20 @@
-var webpack = require("webpack"),
-  path = require("path"),
-  fileSystem = require("fs"),
-  env = require("./utils/env"),
-  CleanWebpackPlugin = require("clean-webpack-plugin").CleanWebpackPlugin,
-  CopyWebpackPlugin = require("copy-webpack-plugin");
+import webpack from "webpack";
+import path from "path";
+import fileSystem from "fs";
+import env from "./utils/env.js";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import { fileURLToPath } from "url";
 
-// load the secrets
-var alias = {};
+const alias = {};
 
-var secretsPath = path.join(__dirname, "secrets." + env.NODE_ENV + ".js");
+const __filename = fileURLToPath(import.meta.url);
 
-var fileExtensions = [
+const __dirname = path.dirname(__filename);
+
+const secretsPath = path.join(__dirname, "secrets." + env.NODE_ENV + ".js");
+
+const fileExtensions = [
   "jpg",
   "jpeg",
   "png",
@@ -27,10 +31,10 @@ if (fileSystem.existsSync(secretsPath)) {
   alias["secrets"] = secretsPath;
 }
 
-var options = {
+const options = {
   mode: process.env.NODE_ENV || "development",
   entry: {
-    content: path.join(__dirname, "src", "js", "content-script-root.js"),
+    content: path.join(__dirname, "src", "js", "contentScriptRoot.js"),
   },
   output: {
     path: path.join(__dirname, "build"),
@@ -65,35 +69,44 @@ var options = {
           },
         ],
       },
+      {
+        test: /\.m?js/,
+        type: "javascript/auto",
+      },
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
     ],
   },
   resolve: {
     alias: alias,
   },
   plugins: [
-    // clean the build folder
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
     }),
-    // expose and write the allowed env vars on the compiled bundle
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
     }),
-    new CopyWebpackPlugin([
-      {
-        from: "src/manifest.json",
-        transform: function (content, path) {
-          // generates the manifest file using the package.json informations
-          return Buffer.from(
-            JSON.stringify({
-              description: process.env.npm_package_description,
-              version: process.env.npm_package_version,
-              ...JSON.parse(content.toString()),
-            })
-          );
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "src/manifest.json",
+          transform: function (content, path) {
+            return Buffer.from(
+              JSON.stringify({
+                description: process.env.npm_package_description,
+                version: process.env.npm_package_version,
+                ...JSON.parse(content.toString()),
+              })
+            );
+          },
         },
-      },
-    ]),
+      ],
+    }),
   ],
 };
 
@@ -101,4 +114,4 @@ if (env.NODE_ENV === "development") {
   options.devtool = "cheap-module-source-map";
 }
 
-module.exports = options;
+export default options;
