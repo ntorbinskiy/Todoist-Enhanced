@@ -91,20 +91,30 @@ const options = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
     }),
-    new CopyWebpackPlugin([
-      {
-        from: "src/manifest.json",
-        transform: function (content, path) {
-          return Buffer.from(
-            JSON.stringify({
-              description: process.env.npm_package_description,
-              version: process.env.npm_package_version,
-              ...JSON.parse(content.toString()),
-            })
-          );
+    //  new CopyWebpackPlugin(
+    //   {
+    //     patterns: [
+    //       { from: 'src/xxx.ext', to: 'dist/xxx.ext' },
+    //       { from: 'src/yyy.ext', to: 'dist/yyy.ext' }
+    //     ]
+    //   }
+    // )
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "src/manifest.json",
+          transform: function (content, path) {
+            return Buffer.from(
+              JSON.stringify({
+                description: process.env.npm_package_description,
+                version: process.env.npm_package_version,
+                ...JSON.parse(content.toString()),
+              })
+            );
+          },
         },
-      },
-    ]),
+      ],
+    }),
   ],
 };
 
