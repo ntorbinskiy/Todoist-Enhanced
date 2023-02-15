@@ -1,7 +1,9 @@
 import nodeToArray from "../helpers/nodeToArray";
 
 const isCompleteTask = (svgPath) => {
-  return svgPath === "sm1/notification_completed.svg";
+  const completedImagePath = "sm1/notification_completed.svg";
+
+  return svgPath === completedImagePath;
 };
 
 const getItemScore = (name, regex) => {

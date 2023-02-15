@@ -6,18 +6,6 @@ import {
   updateTotalPointsScore,
 } from "../components/totalPoints";
 
-const setHeaderOfProjectStyles = (headerOfProject) => {
-  headerOfProject.style.display = "grid";
-  headerOfProject.style.gridTemplateRows = "0fr 2fr";
-  headerOfProject.style.gridTemplateColumns = "auto auto";
-  headerOfProject.style.alignItems = "center";
-  headerOfProject.style.gap = "21px";
-};
-
-const setButtonGroupStyles = (buttonsGroup) => {
-  buttonsGroup.style.gridColumnStart = 2;
-};
-
 const linkLogic = () => {
   const listOfTasks = document.getElementsByClassName("items");
 
@@ -62,7 +50,19 @@ const getTotalPoints = (namesOfTasks) => {
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 };
 
-const setTotalPointsStyle = ({
+const setHeaderOfProjectStyles = (headerOfProject) => {
+  headerOfProject.style.display = "grid";
+  headerOfProject.style.gridTemplateRows = "0fr 2fr";
+  headerOfProject.style.gridTemplateColumns = "auto auto";
+  headerOfProject.style.alignItems = "center";
+  headerOfProject.style.gap = "21px";
+};
+
+const setButtonGroupStyles = (buttonsGroup) => {
+  buttonsGroup.style.gridColumnStart = 2;
+};
+
+const setPageStyles = ({
   buttonsGroup,
   headerOfProject,
   projectName,
@@ -105,7 +105,7 @@ const totalPointsLogic = () => {
     editProjectNameMode,
   };
 
-  setTotalPointsStyle(totalPointsOptions);
+  setPageStyles(totalPointsOptions);
 
   const totalPointsScore = getTotalPoints(namesOfTasks);
 
