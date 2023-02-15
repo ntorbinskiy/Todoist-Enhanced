@@ -1,3 +1,8 @@
+import {
+  createScoreBlock,
+  findScoreBlockElement,
+  updateScore,
+} from "../components/scoreBlock";
 import nodeToArray from "../helpers/nodeToArray";
 
 const isCompleteTask = (svgPath) => {
@@ -35,60 +40,18 @@ const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
   });
 };
 
-const setStylesForScores = ({
-  scoreSum,
-  scoreText,
-  scoreBlockParent,
-  pointsCount,
-}) => {
-  scoreSum.innerHTML = pointsCount;
-  scoreSum.style.fontSize = "12px";
-  scoreSum.style.fontWeight = 700;
-  scoreSum.style.fontFamily = "inherit";
-  scoreSum.style.position = "relative";
-  scoreSum.id = "scoreSum";
-
-  scoreText.innerHTML = "Total Score For This Day: ";
-  scoreText.style.fontSize = "12px";
-  scoreText.style.fontWeight = 400;
-  scoreText.style.fontFamily = "inherit";
-  scoreText.style.position = "relative";
-
-  scoreBlockParent.style.display = "flex";
-  scoreBlockParent.style.justifyContent = "space-between";
-};
-
 const postCounterToPage = (points, numForId, parent) => {
-  const scoreBlock = document.createElement("div");
-  const scoreText = document.createElement("span");
-  const scoreSum = document.createElement("span");
-
   const scoreBlockParent = parent[numForId].querySelector("h2");
 
-  scoreBlock.append(scoreText, scoreSum);
+  const scoreBlockElement = findScoreBlockElement(scoreBlockParent);
 
-  const stylesForScoresOptions = {
-    scoreSum,
-    scoreText,
-    scoreBlockParent,
-    points,
-  };
-
-  setStylesForScores(stylesForScoresOptions);
-
-  const scoreTextOnPage = scoreBlockParent?.querySelector("#scoreSum");
-
-  if (
-    scoreBlockParent.id === "counter" &&
-    parseInt(scoreTextOnPage.textContent) !== points
-  ) {
-    scoreTextOnPage.textContent = points;
-  } else if (scoreBlockParent.id === "counter") {
+  if (!scoreBlockElement) {
+    const scoreBlock = createScoreBlock(scoreBlockElement, points);
+    scoreBlockParent.after(scoreBlock);
     return;
-  } else {
-    scoreBlockParent.append(scoreBlock);
-    scoreBlockParent.id = `counter`;
   }
+
+  updateScore(scoreBlockParent, points);
 };
 
 const checkIsTaskCorrect = (regexForScoreAndPoints) => {
@@ -144,8 +107,8 @@ const activityModule = () => {
   const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
   getItemsScores(tasksArray, getItemScore, regexForScoreAndPoints).map(
-    (task, index) => {
-      return postCounterToPage(task, index, sectionsOfTasks);
+    (points, index) => {
+      return postCounterToPage(points, index, sectionsOfTasks);
     }
   );
 
