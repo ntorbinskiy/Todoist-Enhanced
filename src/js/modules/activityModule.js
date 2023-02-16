@@ -1,3 +1,4 @@
+import { createNoPoints, findNoPointsElement } from "../components/noPoints";
 import {
   createScoreBlock,
   findScoreBlockElement,
@@ -54,7 +55,7 @@ const postCounterToPage = (points, indexOfParent, parent) => {
   updateScore(scoreBlockParent, points);
 };
 
-const checkIsTaskCorrect = (regexForScoreAndPoints) => {
+const isTaskCorrect = (regexForScoreAndPoints) => {
   const taskIcons = document.getElementsByClassName("avatar_event_icon");
 
   nodeToArray(taskIcons).map((taskIcon) => {
@@ -72,31 +73,45 @@ const checkIsTaskCorrect = (regexForScoreAndPoints) => {
 
     const score = getItemScore(taskName, regexForScoreAndPoints);
 
-    if (score === undefined) {
-      const limitOfSignsPerTask = 86;
+    const noPointsElement = findNoPointsElement(taskItem);
 
-      taskItem.style.backgroundColor = "rgba(246, 193, 4, 0.11)";
-      if (taskTime?.id === "noPoints") {
-        return;
-      }
+    if (!noPointsElement || score === undefined) {
+      const noPointsOptions = {
+        taskItem,
+        taskTime,
+        taskName,
+      };
+      const noPoints = createNoPoints(noPointsOptions);
+      //   taskText.after(noPoints);
 
-      const noPoints = document.createElement("span");
-
-      noPoints.innerHTML = "No points entered for this task";
-      taskTime.id = "noPoints";
-      noPoints.style.fontSize = "11px";
-      noPoints.style.fontWeight = 500;
-      noPoints.style.fontFamily = "inherit";
-      noPoints.style.color = "#BC760D";
-      noPoints.style.position = "relative";
-      noPoints.style.top = "0px";
-      noPoints.style.left = "0px";
-
-      if (taskName.length >= limitOfSignsPerTask) {
-        noPoints.style.left = "64px";
-      }
-      taskText.after(noPoints);
+      return;
     }
+
+    // if (score === undefined) {
+    //   const limitOfSignsPerTask = 86;
+
+    //   taskItem.style.backgroundColor = "rgba(246, 193, 4, 0.11)";
+    //   if (taskTime?.id === "noPoints") {
+    //     return;
+    //   }
+
+    //   const noPoints = document.createElement("span");
+
+    //   noPoints.innerHTML = "No points entered for this task";
+    //   taskTime.id = "noPoints";
+    //   noPoints.style.fontSize = "11px";
+    //   noPoints.style.fontWeight = 500;
+    //   noPoints.style.fontFamily = "inherit";
+    //   noPoints.style.color = "#BC760D";
+    //   noPoints.style.position = "relative";
+    //   noPoints.style.top = "0px";
+    //   noPoints.style.left = "0px";
+
+    //   if (taskName.length >= limitOfSignsPerTask) {
+    //     noPoints.style.left = "64px";
+    //   }
+    //   taskText.after(noPoints);
+    // }
   });
 };
 
@@ -112,7 +127,7 @@ const activityModule = () => {
     }
   );
 
-  checkIsTaskCorrect(regexForScoreAndPoints);
+  isTaskCorrect(regexForScoreAndPoints);
 };
 
 export default activityModule;
