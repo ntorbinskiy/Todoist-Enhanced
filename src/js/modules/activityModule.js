@@ -40,14 +40,14 @@ const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
   });
 };
 
-const postCounterToPage = (points, numForId, parent) => {
-  const scoreBlockParent = parent[numForId].querySelector("h2");
+const postCounterToPage = (points, indexOfParent, parent) => {
+  const scoreBlockParent = parent[indexOfParent].querySelector("h2");
 
   const scoreBlockElement = findScoreBlockElement(scoreBlockParent);
 
   if (!scoreBlockElement) {
-    const scoreBlock = createScoreBlock(scoreBlockElement, points);
-    scoreBlockParent.after(scoreBlock);
+    const scoreBlock = createScoreBlock(scoreBlockParent, points);
+    scoreBlockParent.append(scoreBlock);
     return;
   }
 

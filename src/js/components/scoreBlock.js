@@ -18,10 +18,6 @@ const setScoreTextStyles = (scoreText) => {
 };
 
 const setScoreBlockParentStyles = (scoreBlockParent) => {
-  if (!scoreBlockParent) {
-    return;
-  }
-
   scoreBlockParent.style.display = "flex";
   scoreBlockParent.style.justifyContent = "space-between";
 };
@@ -38,7 +34,7 @@ const setStylesForScores = ({
 };
 
 export const findScoreBlockElement = (scoreBlockParent) => {
-  return scoreBlockParent.querySelector(`${SCORE_SUM}`);
+  return scoreBlockParent.querySelector(`#${SCORE_SUM}`);
 };
 
 export const updateScore = (scoreBlockParent, points) => {
