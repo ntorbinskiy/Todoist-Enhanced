@@ -75,14 +75,14 @@ const isTaskCorrect = (regexForScoreAndPoints) => {
 
     const noPointsElement = findNoPointsElement(taskItem);
 
-    if (!noPointsElement || score === undefined) {
+    if (!noPointsElement && score === undefined) {
       const noPointsOptions = {
         taskItem,
         taskTime,
         taskName,
       };
       const noPoints = createNoPoints(noPointsOptions);
-      //   taskText.after(noPoints);
+      taskText.after(noPoints);
 
       return;
     }
